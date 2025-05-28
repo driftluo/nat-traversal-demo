@@ -83,6 +83,15 @@ flowchart LR
 
 ### How to Use
 
+Please note the following:
+1. **stun_server's eth0 subnet** is consistent with **nat1_gateway's eth1**/**nat2_gateway's eth1**.
+2. **peer1's eth0 subnet** is consistent with **nat1_gateway's eth0** subnet.
+3. **peer2's eth0 subnet** is consistent with **nat2_gateway's eth0** subnet.
+
+Generally, the initialization order of network interfaces in Compose is consistent with the configuration file, but inconsistencies may occur sometimes. If the Compose environment does not meet the above assumptions, this environment is problematic and requires a restart or manual reconfiguration of the iptable NAT settings to match the current environment.
+
+Here is the operation process:
+
 1. Start the Environment and Run the STUN Server `nat-traversal`
 ```bash
 # Start all Docker containers
@@ -109,7 +118,7 @@ $ ip addr
 $ ./nat-traversal
 ```
 
-2. Configure Client 1's Network
+1. Configure Client 1's Network
 
 ```bash
 ❯ docker exec -it nat1_gateway sh
